@@ -11,6 +11,7 @@ import net.henrycmoss.bb.entity.BbEntities;
 import net.henrycmoss.bb.entity.client.HatManRenderer;
 import net.henrycmoss.bb.entity.client.TntCannonRenderer;
 import net.henrycmoss.bb.item.BbItems;
+import net.henrycmoss.bb.tab.BbCreativeModeTabs;
 import net.henrycmoss.bb.villager.BbVillagers;
 import net.henrycmoss.bb.world.gen.BbPlacementModifiers;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -18,6 +19,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
@@ -58,6 +60,7 @@ public class Bb {
 
         BbItems.register(modEventBus);
         BbBlocks.register(modEventBus);
+        BbCreativeModeTabs.register(modEventBus);
         BbVillagers.register(modEventBus);
         BbEntities.register(modEventBus);
         BlockEntityTypes.register(modEventBus);
@@ -76,17 +79,19 @@ public class Bb {
     }
 
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
-        if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
-            event.accept(BbItems.JOINT);
-            event.accept(BbItems.EPHEDRA_STEM);
-            event.accept(BbItems.UNLIT_JOINT);
-            event.accept(BbItems.EPHEDRA_SEEDS);
+        if (event.getTabKey() == BbCreativeModeTabs.BB.getKey()) {
             event.accept(BbItems.METHAMPHETAMINE);
+            event.accept(BbItems.MARIJUANA);
+            event.accept(BbItems.UNLIT_JOINT);
+            event.accept(BbItems.JOINT);
+            event.accept(BbItems.EPHEDRA_SEEDS);
+            event.accept(BbItems.EPHEDRA_STEM);
             event.accept(BbItems.PLASTIC_BAG);
-            event.accept(BbItems.MARIJUANA.get());
+            event.accept(BbItems.ACID_BUCKET);
             event.accept(BbItems.TNT_CANNON);
-            event.accept(BbBlocks.COCAINE_TRAY.get());
-            event.accept(BbBlocks.ETHER.get());
+            event.accept(BbItems.ALCOHOL_BOTTLE);
+            event.accept(BbBlocks.COCAINE_TRAY);
+            event.accept(BbBlocks.ETHER);
         }
     }
 

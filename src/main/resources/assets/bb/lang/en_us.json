@@ -1,0 +1,10 @@
+{
+  "item.bb.blunt": "Blunt",
+  "item.bb.unlit_blunt": "Unlit Blunt",
+  "item.bb.marijuana": "Marijuana",
+  "item.bb.plastic_bag": "Plastic Bag",
+  "item.bb.acid_bucket": "Sulfuric Acid Bucket",
+  "item.bb.methamphetamine": "Methamphetamine",
+
+  "entity.minecraft.villager.bb.meth_cook": "Meth Cook"
+}

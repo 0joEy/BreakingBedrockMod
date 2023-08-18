@@ -54,7 +54,7 @@ public class BbItems {
                     .craftRemainder(Items.GLASS_BOTTLE).food(BbFoods.ALCOHOL)));
 
     public static final RegistryObject<Item> SULFUR = ITEMS.register("sulfur",
-            () -> new Item(new Item.Properties()));
+            () -> new SulfurItem(new Item.Properties()));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

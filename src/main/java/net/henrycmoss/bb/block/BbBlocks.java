@@ -1,18 +1,18 @@
 package net.henrycmoss.bb.block;
 
 import net.henrycmoss.bb.Bb;
-import net.henrycmoss.bb.block.custom.CocaineTrayBlock;
-import net.henrycmoss.bb.block.custom.EphedraCropBlock;
-import net.henrycmoss.bb.block.custom.EtherBlock;
-import net.henrycmoss.bb.block.custom.JarBlock;
+import net.henrycmoss.bb.block.custom.*;
 import net.henrycmoss.bb.block.custom.fluid.BbFluids;
 import net.henrycmoss.bb.item.BbItems;
+import net.minecraft.core.RegistrySetBuilder;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -38,12 +38,27 @@ public class BbBlocks {
 
     public static final RegistryObject<LiquidBlock> ACID = registerBlock("acid",
             () -> new LiquidBlock(BbFluids.SOURCE_ACID, BlockBehaviour.Properties.copy(Blocks.WATER)));
-
     public static final RegistryObject<Block> JAR = registerBlock("jar",
             () -> new JarBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(1f).noOcclusion()));
 
+    public static final RegistryObject<Block> CRUCIBLE = registerBlock("crucible",
+            () -> new CrucibleBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(1f)
+                    .noOcclusion()));
     public static final RegistryObject<Block> SULFUR_ORE = registerBlock("sulfur_ore",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.GOLD_ORE)));
+
+    public static final RegistryObject<Block> MARIJUANA_BUSH = registerBlock("marijuana_bush",
+            () -> new MarijuanaBushBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.GRASS)
+                            .offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY)));
+
+    public static final RegistryObject<Block> ERGOT_INFESTED_WHEAT_CROP = registerBlock("ergot_infested_wheat_crop",
+            () -> new ErgotInfestedWheatCropBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission()
+                    .randomTicks().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY)));
+
+    public static final RegistryObject<Block> SHROOM_PATCH = registerBlock("shroom_patch",
+            () -> new ShroomPatchBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission()
+                    .randomTicks().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY)));
+
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);

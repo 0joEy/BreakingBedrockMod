@@ -27,23 +27,23 @@ public class UnlitJointItem extends Item {
         if(!pLevel.isClientSide) {
             ItemStack offhand = pPlayer.getOffhandItem();
             if(offhand.is(Items.FLINT_AND_STEEL)) {
-                if(pPlayer.getItemInHand(pUsedHand).getCount() > 1) {
-                    if(!pPlayer.getInventory().add(new ItemStack(BbItems.JOINT.get(), 1))) {
-                        ItemEntity airJoint = new ItemEntity(pLevel, pPlayer.getX(), pPlayer.getY() + 1, pPlayer.getZ(),
-                                new ItemStack(BbItems.JOINT.get()));
-                        airJoint.setDeltaMovement(ShootingTools.shootFromRotation(pPlayer.getXRot(), pPlayer.getYRot(), 0f,
-                                0.4f));
-                        pLevel.addFreshEntity(airJoint);
-                    }
-                }
-                else {
-                    pPlayer.setItemInHand(pUsedHand, BbItems.JOINT.get().getDefaultInstance());
-                }
                 if(!pPlayer.isCreative()) {
                     ItemStack itemInHand = pPlayer.getItemInHand(pUsedHand);
                     pPlayer.setItemInHand(pUsedHand, new ItemStack(itemInHand.getItem(),
                             itemInHand.getCount() - 1));
                     offhand.hurtAndBreak(1, pPlayer, (player -> player.broadcastBreakEvent(pUsedHand)));
+                }
+                if(pPlayer.getItemInHand(pUsedHand).getCount() > 1) {
+                    if(!pPlayer.getInventory().add(new ItemStack(BbItems.JOINT.get(), 1))) {
+                        ItemEntity airJoint = new ItemEntity(pLevel, pPlayer.getX(), pPlayer.getY() + 1,
+                                pPlayer.getZ(), new ItemStack(BbItems.JOINT.get()));
+                        airJoint.setDeltaMovement(ShootingTools.shootFromRotation(pPlayer.getXRot(), pPlayer.getYRot(),
+                                0f, 0.4f));
+                        pLevel.addFreshEntity(airJoint);
+                    }
+                }
+                else {
+                    pPlayer.setItemInHand(pUsedHand, BbItems.JOINT.get().getDefaultInstance());
                 }
                 return InteractionResultHolder.success(stack);
             }

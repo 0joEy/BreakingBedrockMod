@@ -23,6 +23,9 @@ public class BbEffects {
     public static final RegistryObject<MobEffect> ACID_BURN = EFFECTS.register("acid_burn",
             () -> new AcidBurnEffect(MobEffectCategory.HARMFUL, 0xB0DE0BFF));
 
+    public static final RegistryObject<MobEffect> SHROOMS = EFFECTS.register("shrooms",
+            () -> new ShroomsEffect(MobEffectCategory.NEUTRAL, 0x5b040d));
+
     public static void register(IEventBus eventBus) {
         EFFECTS.register(eventBus);
     }

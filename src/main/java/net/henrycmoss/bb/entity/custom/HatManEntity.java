@@ -65,24 +65,25 @@ public class HatManEntity extends Monster implements GeoEntity {
     public void tick() {
         super.tick();
         if(getTarget() != null) {
-            if(bar != null) {
+            if (bar != null) {
                 bar.addPlayer((ServerPlayer) getTarget());
                 bar.setValue((int) this.getHealth());
             }
 
-            ((ServerPlayer) getTarget()).sendSystemMessage(Component.literal("" + this.getHealth() + (int) this.getHealth()));
+            (getTarget()).sendSystemMessage(Component.literal("" + this.getHealth() + (int) this.getHealth()));
             if (getTarget().distanceToSqr(this.position()) > 256d) {
                 teleportTo(getTarget());
             }
-            if(!this.hasLineOfSight(getTarget())) {
+            if (!this.hasLineOfSight(getTarget())) {
                 teleportTo(getTarget());
+            }
+            if(!this.getTarget().hasEffect(BbEffects.BAD_TRIP.get())) {
+                bar.removeAllPlayers();
+                this.kill();
             }
         }
         else bar.removeAllPlayers();
-        if(!this.getTarget().hasEffect(BbEffects.BAD_TRIP.get())) {
-            bar.removeAllPlayers();
-            this.kill();
-        }
+
         LogUtils.getLogger().info("no target");
     }
 

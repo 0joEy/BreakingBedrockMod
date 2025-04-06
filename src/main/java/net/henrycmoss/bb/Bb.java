@@ -5,29 +5,25 @@ import net.henrycmoss.bb.block.BbBlocks;
 import net.henrycmoss.bb.block.custom.fluid.BbFluidTypes;
 import net.henrycmoss.bb.block.custom.fluid.BbFluids;
 import net.henrycmoss.bb.block.entity.BlockEntityTypes;
-import net.henrycmoss.bb.datagen.WorldGenDataProvider;
+import net.henrycmoss.bb.client.HallucinationRenderer;
+import net.henrycmoss.bb.client.ShroomsRenderer;
 import net.henrycmoss.bb.effect.BbEffects;
 import net.henrycmoss.bb.entity.BbEntities;
 import net.henrycmoss.bb.entity.client.HatManRenderer;
 import net.henrycmoss.bb.entity.client.TntCannonRenderer;
 import net.henrycmoss.bb.item.BbItems;
+import net.henrycmoss.bb.recipe.BbRecipes;
 import net.henrycmoss.bb.tab.BbCreativeModeTabs;
 import net.henrycmoss.bb.villager.BbVillagers;
-import net.henrycmoss.bb.world.gen.BbPlacementModifiers;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderers;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.PackOutput;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -45,6 +41,10 @@ public class Bb {
     // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
 
+    private static final HallucinationRenderer TEST_RENDERER = new HallucinationRenderer();
+
+    private static final ShroomsRenderer SHROOMS_RENDERER = new ShroomsRenderer();
+
     public Bb() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
@@ -56,7 +56,7 @@ public class Bb {
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
-        modEventBus.addListener(EventPriority.LOW, Bb::gatherData);
+        //modEventBus.addListener(EventPriority.LOW, Bb::gatherData);
 
         BbItems.register(modEventBus);
         BbBlocks.register(modEventBus);
@@ -67,7 +67,8 @@ public class Bb {
         BbEffects.register(modEventBus);
         BbFluids.register(modEventBus);
         BbFluidTypes.register(modEventBus);
-        BbPlacementModifiers.register(modEventBus);
+        BbRecipes.register(modEventBus);
+        //BbPlacementModifiers.register(modEventBus);
         //BbFeatures.register(modEventBus);
         //BbPlacementModifiers.register(modEventBus);
     }
@@ -87,7 +88,7 @@ public class Bb {
             event.accept(BbItems.EPHEDRA_SEEDS);
             event.accept(BbItems.EPHEDRA_STEM);
             event.accept(BbItems.PLASTIC_BAG);
-            event.accept(BbItems.ACID_BUCKET);
+            event.accept(BbItems.SULFURIC_ACID_BUCKET);
             event.accept(BbItems.TNT_CANNON);
             event.accept(BbItems.ALCOHOL_BOTTLE);
             event.accept(BbBlocks.COCAINE_TRAY);
@@ -95,14 +96,14 @@ public class Bb {
         }
     }
 
-    public static void gatherData(GatherDataEvent event) {
+    /*public static void gatherData(GatherDataEvent event) {
         DataGenerator gen = event.getGenerator();
         PackOutput output = gen.getPackOutput();
 
         if (event.includeServer()) {
             gen.addProvider(true, WorldGenDataProvider.makeFactory(event.getLookupProvider()));
         }
-    }
+    }*/
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
     @SubscribeEvent
@@ -117,11 +118,16 @@ public class Bb {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
             ItemBlockRenderTypes.setRenderLayer(BbBlocks.EPHEDRA_CROP.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BbBlocks.ERGOT_INFESTED_WHEAT_CROP.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BbBlocks.MARIJUANA_BUSH.get(), RenderType.cutout());
             EntityRenderers.register(BbEntities.TNT_CANNON.get(), TntCannonRenderer::new);
             EntityRenderers.register(BbEntities.HAT_MAN.get(), HatManRenderer::new);
 
             ItemBlockRenderTypes.setRenderLayer(BbFluids.SOURCE_ACID.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(BbFluids.FLOWING_ACID.get(), RenderType.translucent());
+
+            MinecraftForge.EVENT_BUS.register(Bb.TEST_RENDERER);
+            MinecraftForge.EVENT_BUS.register(Bb.SHROOMS_RENDERER);
         }
     }
 }

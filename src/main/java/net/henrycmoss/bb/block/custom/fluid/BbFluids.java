@@ -22,7 +22,7 @@ public class BbFluids {
 
     public static final ForgeFlowingFluid.Properties ACID_FLUID_PROPERTIES = new ForgeFlowingFluid.Properties(
             BbFluidTypes.ACID_FLUID_TYPE, SOURCE_ACID, FLOWING_ACID).slopeFindDistance(2).levelDecreasePerBlock(2)
-            .block(BbBlocks.ACID).bucket(BbItems.ACID_BUCKET);
+            .block(BbBlocks.ACID).bucket(BbItems.SULFURIC_ACID_BUCKET);
 
     public static void register(IEventBus eventBus) {
         FLUIDS.register(eventBus);

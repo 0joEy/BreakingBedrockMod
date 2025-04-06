@@ -43,7 +43,7 @@ public class BbItems {
     public static final RegistryObject<Item> METHAMPHETAMINE = ITEMS.register("methamphetamine",
             () -> new Item(new Item.Properties().food(BbFoods.METHAMPHETAMINE)));
 
-    public static final RegistryObject<Item> ACID_BUCKET = ITEMS.register("acid_bucket",
+    public static final RegistryObject<Item> SULFURIC_ACID_BUCKET = ITEMS.register("sulfuric_acid_bucket",
             () -> new BucketItem(BbFluids.SOURCE_ACID, new Item.Properties().stacksTo(1).craftRemainder(Items.BUCKET)));
 
     public static final RegistryObject<Item> TNT_CANNON = ITEMS.register("tnt_cannon",
@@ -55,6 +55,36 @@ public class BbItems {
 
     public static final RegistryObject<Item> SULFUR = ITEMS.register("sulfur",
             () -> new SulfurItem(new Item.Properties()));
+
+    public static final RegistryObject<Item> TERMINAL = ITEMS.register("terminal",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> BATTERY = ITEMS.register("battery",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> BATTERY_FLUID = ITEMS.register("battery_fluid",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> PLASTIC = ITEMS.register("plastic",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> GRAPHITE = ITEMS.register("graphite",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> LSD_TABLET = ITEMS.register("lsd_tablet",
+            () -> new Item(new Item.Properties().food(BbFoods.LSD_TABLET)));
+
+    public static final RegistryObject<Item> ERGOT_INFESTED_WHEAT_SEEDS = ITEMS.register("ergot_infested_wheat_seeds",
+            () -> new ItemNameBlockItem(BbBlocks.ERGOT_INFESTED_WHEAT_CROP.get(), new Item.Properties()));
+
+    public static final RegistryObject<Item> ERGOT_INFESTED_WHEAT = ITEMS.register("ergot_infested_wheat",
+        () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> ERGOT = ITEMS.register("ergot",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> MAGIC_MUSHROOMS = ITEMS.register("magic_mushrooms",
+            () -> new Item(new Item.Properties().food(BbFoods.MAGIC_MUSHROOMS)));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

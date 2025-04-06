@@ -2,7 +2,6 @@ package net.henrycmoss.bb.block.entity;
 
 import net.henrycmoss.bb.Bb;
 import net.henrycmoss.bb.block.BbBlocks;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;

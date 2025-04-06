@@ -3,8 +3,9 @@
   "item.bb.unlit_blunt": "Unlit Blunt",
   "item.bb.marijuana": "Marijuana",
   "item.bb.plastic_bag": "Plastic Bag",
-  "item.bb.acid_bucket": "Sulfuric Acid Bucket",
+  "item.bb.sulfuric_acid_bucket": "Sulfuric Acid Bucket",
   "item.bb.methamphetamine": "Methamphetamine",
+  "item.bb.lsd_tablet": "Lysergic Acid Diethylamide Tablet",
 
   "entity.minecraft.villager.bb.meth_cook": "Meth Cook"
 }

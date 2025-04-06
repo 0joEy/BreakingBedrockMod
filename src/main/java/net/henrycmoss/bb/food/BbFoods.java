@@ -1,5 +1,6 @@
 package net.henrycmoss.bb.food;
 
+import net.henrycmoss.bb.effect.BbEffects;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
@@ -12,7 +13,12 @@ public class BbFoods {
             .effect(() -> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 3500, 0), 0.87f)
             .effect(() -> new MobEffectInstance(MobEffects.JUMP, 2500, 1), 0.75f)
             .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 5000, 1), 1f)
-            .effect(() -> new MobEffectInstance(MobEffects.DAMAGE_BOOST, 3000, 2), 0.75f).build();
+            .effect(() -> new MobEffectInstance(MobEffects.DAMAGE_BOOST, 3000, 2), 0.75f)
+            .build();
+
+    public static final FoodProperties MAGIC_MUSHROOMS = (new FoodProperties.Builder()).alwaysEat()
+            .effect(() -> new MobEffectInstance(MobEffects.WEAKNESS, 8000, 1), 1f)
+            .effect(() -> new MobEffectInstance(BbEffects.SHROOMS.get(), 8000), 1.0f).build();
 
     public static final FoodProperties METHAMPHETAMINE = (new FoodProperties.Builder()).alwaysEat()
             .effect(() -> new MobEffectInstance(MobEffects.DARKNESS, 2000, 0), 1)
@@ -30,4 +36,10 @@ public class BbFoods {
             .effect(() -> new MobEffectInstance(MobEffects.UNLUCK, 2500, 0), 0.4f)
             .effect(() -> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 3500, 0), 0.8f)
             .effect(() -> new MobEffectInstance(MobEffects.NIGHT_VISION, 4500), 0.5f).build();
+
+    public static final FoodProperties LSD_TABLET = (new FoodProperties.Builder()).alwaysEat()
+            .effect(() -> new MobEffectInstance(MobEffects.POISON, 1500, 0), 0.85f)
+            .effect(() -> new MobEffectInstance(BbEffects.HALLUCINATION.get(), 8000), 1f)
+            .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 8000), 0.95f)
+            .effect(() -> new MobEffectInstance(MobEffects.CONFUSION, 8000), 1f).build();
 }

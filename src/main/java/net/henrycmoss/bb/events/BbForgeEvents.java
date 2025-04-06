@@ -61,6 +61,8 @@ public class BbForgeEvents {
 
     private static boolean jumped = false;
 
+    private static Projectile lastPro = null;
+
     @SubscribeEvent
     public static void registerCommandsEvent(RegisterCommandsEvent event) {
         new HomeCommand(event.getDispatcher());
@@ -108,13 +110,15 @@ public class BbForgeEvents {
     @SubscribeEvent
     public static void skeletonShoot(EntityEvent event) {
         if(event.getEntity() instanceof Projectile pro) {
-            Level level = pro.level();
-            if(pro.getOwner() instanceof Skeleton) {
-                PrimedTnt tnt = new PrimedTnt(EntityType.TNT, level);
-                tnt.setPos(pro.position());
-                tnt.setDeltaMovement(pro.getDeltaMovement());
-                pro.kill();
-                level.addFreshEntity(tnt);
+            if(pro != lastPro) {
+                Level level = pro.level();
+                if (pro.getOwner() instanceof Skeleton) {
+                    lastPro = pro;
+                    PrimedTnt tnt = new PrimedTnt(EntityType.TNT, level);
+                    tnt.setPos(pro.position());
+                    tnt.setDeltaMovement(pro.getDeltaMovement());
+                    level.addFreshEntity(tnt);
+                }
             }
         }
     }
@@ -123,7 +127,6 @@ public class BbForgeEvents {
     public static void tntCannon(TickEvent.PlayerTickEvent event) {
         Player player = event.player;
         Level level = player.level();
-        player.sendSystemMessage(Component.literal("1"));
 
         List<PrimedTnt> tnts = level.getEntitiesOfClass(PrimedTnt.class,
                 new AABB(player.getX() - 100, player.getY() - 100, player.getZ() - 100,
@@ -132,7 +135,6 @@ public class BbForgeEvents {
         Optional<PrimedTnt> pTnts = tnts.stream().filter((pTnt) -> pTnt.getFuse() < 10 && pTnt.getTags().contains("cannon")).findFirst();
 
         if(pTnts.isPresent()) {
-            player.sendSystemMessage(Component.literal("2"));
             float pX = 0;
             float pY = 0;
             for(int i = 0; i < 5; i++) {
@@ -144,7 +146,6 @@ public class BbForgeEvents {
             pX += 10;
             pY += 10;
             level.addFreshEntity(tnt);
-            player.sendSystemMessage(Component.literal("spawned"));
             }
         }
     }
@@ -164,11 +165,9 @@ public class BbForgeEvents {
 
     @SubscribeEvent
     public static void creeperExplode(ExplosionEvent.Start event) {
-        event.getExplosion().getExploder().level().getServer().sendSystemMessage(Component.literal("explode"));
         if(event.getExplosion().getExploder() instanceof Creeper) {
             Creeper creeper = (Creeper) event.getExplosion().getExploder();
             Level level = creeper.level();
-            level.getServer().sendSystemMessage(Component.literal("creeper"));
             float pX = 0;
             float pY = 0;
             for(int i = 0; i < 10; i++) {
@@ -180,7 +179,6 @@ public class BbForgeEvents {
                 pX += 30;
                 pY += 30;
                 level.addFreshEntity(tnt);
-                level.getServer().sendSystemMessage(Component.literal("spawned"));
             }
         }
     }
@@ -190,7 +188,6 @@ public class BbForgeEvents {
         if (event.getEntity() instanceof Player) {
             jumped = true;
         }
-        event.getEntity().sendSystemMessage(Component.literal(BbFluidTypes.BUBBLE_OVERLAY.toString()));
     }
 
 }
